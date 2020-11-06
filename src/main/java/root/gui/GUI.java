@@ -254,6 +254,7 @@ public class GUI {
                         entry.setValue(true);
                 }
             }
+            System.out.println("Koniec listy.");
         }
     }
 
@@ -284,7 +285,7 @@ public class GUI {
             } else {
                 if (registerRepository.checkLessonAvailability(subject)) {
                     registerRepository.addNewLesson(subject);
-                    System.out.println("Dodano nową lekcję");
+                    System.out.println("Dodano nową lekcję.");
                     exitLoop=true;
                 } else {
                     System.out.println("Istnieją już zajęcia ze wskazanym tematem i dzisiejszą datą, proszę spróbować ponownie.");
@@ -380,6 +381,7 @@ public class GUI {
                 transcriptNumber = getTranscriptNumber();
                 if (!transcriptNumber.equalsIgnoreCase("exit")) {
                     registerRepository.addNewStudent(firstName, lastName, Integer.parseInt(transcriptNumber));
+                    System.out.println("Dodano nowego studenta.");
                 } else {
                     System.out.println(ABORT_OPERATION);
                 }
