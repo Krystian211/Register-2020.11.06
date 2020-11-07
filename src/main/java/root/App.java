@@ -6,6 +6,7 @@ import root.gui.GUI;
 
 public class App {
     public static void main(String[] args) {
+        //
         ApplicationContext applicationContext=new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
         GUI gui=applicationContext.getBean(GUI.class);
         gui.startMainLoop();
