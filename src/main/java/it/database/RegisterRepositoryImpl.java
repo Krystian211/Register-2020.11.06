@@ -1,13 +1,13 @@
-package root.database;
+package it.database;
 
 import io.bretty.console.table.Alignment;
 import io.bretty.console.table.ColumnFormatter;
 import io.bretty.console.table.Precision;
 import io.bretty.console.table.Table;
 import org.apache.commons.codec.digest.DigestUtils;
-import root.model.Lesson;
-import root.model.Student;
-import root.model.User;
+import it.model.Lesson;
+import it.model.Student;
+import it.model.User;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -18,7 +18,7 @@ public class RegisterRepositoryImpl implements IRegisterRepository {
     private List<Lesson> lessonsList = new ArrayList<>();
     private Lesson presentLesson;
 
-    private RegisterRepositoryImpl() {
+    public RegisterRepositoryImpl() {
         addDefaultUser();
         addDefaultStudents();
         addDefaultLessons();
@@ -36,31 +36,28 @@ public class RegisterRepositoryImpl implements IRegisterRepository {
     }
 
     private void addDefaultLessons() {
-        Map<Student, Boolean> exampleAttendanceList = new TreeMap<>();
+        Map<Student, Boolean> exampleAttendanceList1 = new TreeMap<>();
+        Map<Student, Boolean> exampleAttendanceList2 = new TreeMap<>();
 
         for (Student student : studentsList) {
-            exampleAttendanceList.put(student, true);
+            exampleAttendanceList1.put(student, true);
         }
         //Wprowadzenie jednej nieobecnosci
-        exampleAttendanceList.put(new Student("Zuzanna", "Bryk", 25030), false);
+        exampleAttendanceList1.put(studentsList.get(3),false);
 
         lessonsList.add(new Lesson("Polimorfizm",
                 LocalDate.of(2020, 10, 31),
-                exampleAttendanceList));
+                exampleAttendanceList1));
 
         for (Student student : studentsList) {
-            exampleAttendanceList.put(student, true);
+            exampleAttendanceList2.put(student, true);
         }
 
         lessonsList.add(new Lesson("Typy generyczne",
                 LocalDate.of(2020, 11, 5),
-                exampleAttendanceList));
+                exampleAttendanceList2));
 
         Collections.sort(lessonsList);
-    }
-
-    public static RegisterRepositoryImpl getInstance() {
-        return SingletonHolder.INSTANCE;
     }
 
     @Override
@@ -174,9 +171,6 @@ public class RegisterRepositoryImpl implements IRegisterRepository {
         builder.addColumn("Nazwisko", lastNames, lastNameFormatter);
         builder.addColumn("Nr indeksu", transcriptsNumbers, numberFormatter);
         Table table = builder.build();
-
-
-
         return table.toString();
     }
 
@@ -272,9 +266,5 @@ public class RegisterRepositoryImpl implements IRegisterRepository {
             }
         }
         return true;
-    }
-
-    private static class SingletonHolder {
-        private static final RegisterRepositoryImpl INSTANCE = new RegisterRepositoryImpl();
     }
 }

@@ -1,4 +1,4 @@
-package root.model;
+package it.model;
 
 public class User implements Comparable<User>{
     private String username;

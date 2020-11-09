@@ -1,20 +1,20 @@
-package root.gui;
+package it.gui;
 
-import root.database.IRegisterRepository;
-import root.model.Lesson;
-import root.model.Student;
+import it.database.IRegisterRepository;
+import it.model.Lesson;
+import it.model.Student;
 
 import java.util.Map;
 import java.util.Scanner;
 
 public class GUI {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static IRegisterRepository registerRepository;
     private static final String INVALID_CHARACTER_MESSAGE = "Wprowadzono niepoprawny znak, proszę wprowadzić liczbę.";
     private static final String ABORT_OPERATION = "Anulowano operację.";
 
     public void setRegisterRepository(IRegisterRepository registerRepository) {
-        this.registerRepository = registerRepository;
+        GUI.registerRepository = registerRepository;
     }
 
     public void startMainLoop() {
@@ -134,6 +134,7 @@ public class GUI {
 
     private void showAttendance() {
         System.out.println("\n---Lista obecności---");
+        System.out.println(registerRepository.getPresentLesson());
         System.out.println(registerRepository.generateAttendanceTable());
     }
 
@@ -250,8 +251,7 @@ public class GUI {
                     System.out.println(ABORT_OPERATION);
                     return;
                 } else {
-                    if (attendance.equals("+"))
-                        entry.setValue(true);
+                    entry.setValue(attendance.equals("+"));
                 }
             }
             System.out.println("Koniec listy.");
@@ -274,19 +274,19 @@ public class GUI {
     }
 
     private void addNewLesson() {
-        boolean exitLoop=false;
+        boolean exitLoop = false;
         String subject;
         System.out.println("\n---Dodawanie nowej lekcji---");
         do {
             subject = getSubject();
             if (subject.equalsIgnoreCase("exit")) {
-                exitLoop=true;
+                exitLoop = true;
                 System.out.println(ABORT_OPERATION);
             } else {
                 if (registerRepository.checkLessonAvailability(subject)) {
                     registerRepository.addNewLesson(subject);
                     System.out.println("Dodano nową lekcję.");
-                    exitLoop=true;
+                    exitLoop = true;
                 } else {
                     System.out.println("Istnieją już zajęcia ze wskazanym tematem i dzisiejszą datą, proszę spróbować ponownie.");
                 }

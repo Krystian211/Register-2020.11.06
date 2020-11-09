@@ -1,4 +1,4 @@
-package root.gui;
+package it.gui;
 
 public class Options {
     private interface IOptionGetters {

@@ -1,6 +1,6 @@
-package root.database;
+package it.database;
 
-import root.model.Lesson;
+import it.model.Lesson;
 
 public interface IRegisterRepository {
     boolean authenticate(String username, String password);

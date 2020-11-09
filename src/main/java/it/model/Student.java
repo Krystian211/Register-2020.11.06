@@ -1,4 +1,6 @@
-package root.model;
+package it.model;
+
+import java.util.Objects;
 
 public class Student implements Comparable<Student> {
     private String firstName;
@@ -37,6 +39,21 @@ public class Student implements Comparable<Student> {
         } else {
             return result;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return this.transcriptNumber == student.transcriptNumber &&
+                Objects.equals(this.firstName, student.firstName) &&
+                Objects.equals(this.lastname, student.lastname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastname, transcriptNumber);
     }
 
     @Override
